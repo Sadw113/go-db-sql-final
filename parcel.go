@@ -76,6 +76,12 @@ func (s ParcelStore) GetByClient(client int) ([]Parcel, error) {
 		res = append(res, parsel)
 	}
 
+	err = rows.Err()
+
+	if err != nil {
+		return nil, err
+	}
+
 	return res, nil
 }
 
@@ -95,20 +101,6 @@ func (s ParcelStore) SetStatus(number int, status string) error {
 func (s ParcelStore) SetAddress(number int, address string) error {
 	// реализуйте обновление адреса в таблице parcel
 	// менять адрес можно только если значение статуса registered
-
-	// var status string
-
-	// row := s.db.QueryRow("SELECT status FROM parcel WHERE number = :number", sql.Named("number", number))
-
-	// err := row.Scan(&status)
-
-	// if err != nil {
-	// 	return err
-	// }
-
-	// if status != ParcelStatusRegistered {
-	// 	return fmt.Errorf("Статус не зарегистрирован")
-	// }
 
 	_, err := s.db.Exec("update parcel set address = :address where number = :number and status = :status",
 		sql.Named("address", address),

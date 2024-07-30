@@ -34,9 +34,8 @@ func TestAddGetDelete(t *testing.T) {
 	// prepare
 	db, err := sql.Open("sqlite", "tracker.db")
 
-	if err != nil {
-		require.NoError(t, err)
-	}
+	require.NoError(t, err)
+
 	defer db.Close()
 
 	store := NewParcelStore(db)
@@ -79,9 +78,8 @@ func TestSetAddress(t *testing.T) {
 	// db, err := // настройте подключение к БД
 	db, err := sql.Open("sqlite", "tracker.db")
 
-	if err != nil {
-		require.NoError(t, err)
-	}
+	require.NoError(t, err)
+
 	defer db.Close()
 
 	store := NewParcelStore(db)
@@ -118,9 +116,7 @@ func TestSetStatus(t *testing.T) {
 	// db, err := // настройте подключение к БД
 	db, err := sql.Open("sqlite", "tracker.db")
 
-	if err != nil {
-		require.NoError(t, err)
-	}
+	require.NoError(t, err)
 	defer db.Close()
 
 	store := NewParcelStore(db)
@@ -157,9 +153,7 @@ func TestGetByClient(t *testing.T) {
 	// prepare
 	db, err := sql.Open("sqlite", "tracker.db")
 
-	if err != nil {
-		require.NoError(t, err)
-	}
+	require.NoError(t, err)
 	defer db.Close()
 
 	store := NewParcelStore(db)
@@ -197,18 +191,6 @@ func TestGetByClient(t *testing.T) {
 	require.NoError(t, err) // убедитесь в отсутствии ошибки
 
 	assert.Equal(t, len(parcels), len(storedParcels)) // убедитесь, что количество полученных посылок совпадает с количеством добавленных
-
-	// check
-	// for _, parcel := range storedParcels {
-	// 	// в parcelMap лежат добавленные посылки, ключ - идентификатор посылки, значение - сама посылка
-	// 	// убедитесь, что все посылки из storedParcels есть в parcelMap
-	// 	// убедитесь, что значения полей полученных посылок заполнены верно
-	// 	assert.Equal(t, parcel, parcelMap[client])
-	// 	assert.Equal(t, parcel.Address, parcelMap[client].Address)
-	// 	assert.Equal(t, parcel.Status, parcelMap[client].Status)
-	// 	assert.Equal(t, parcel.CreatedAt, parcelMap[client].CreatedAt)
-	// 	assert.Equal(t, parcel.Number, parcelMap[client].Number)
-	// }
 
 	for _, parcel := range storedParcels {
 		// в parcelMap лежат добавленные посылки, ключ - идентификатор посылки, значение - сама посылка
